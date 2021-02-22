@@ -7,12 +7,15 @@ class STable(QTableWidget):
         super(STable, self).__init__(parent)
         # self.init_table(self.parent())
 
-    def init_table(self, row=0, cols=0):
+    def init_table(self, row=0, cols=0, headers=None):
+        if headers is None:
+            headers = []
         self.setAlternatingRowColors(True)
         self.setColumnCount(cols)
         self.setRowCount(row)
         self.setFixedWidth(self.parent().width())
         self.setFixedHeight(self.parent().height())
+        self.setHorizontalHeaderLabels(headers)
 
     def LoadTable(self,rdata=None):
         # debugging purpose! remove after debugs!
