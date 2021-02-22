@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QLineEdit
 from PyQt5.QtWidgets import *
 import sys
 import os
-# import atexit
+import atexit
 # creates error sometimes look to it!!er
 import pickle
 
@@ -14,7 +14,7 @@ class SLQLineEdit(QLineEdit):
         self.autoCompleter=QCompleter(self.learn_list)
         self.setCompleter(self.autoCompleter)
         self.returnPressed.connect(self.OnreturnPressed)
-        # atexit.register(self.update_learn_list)
+        atexit.register(self.update_learn_list)
 
     def load(self):
         try:
@@ -46,7 +46,7 @@ class SLQLineEdit(QLineEdit):
             self.setCompleter(newCompleter)
             print("Current learn lis",self.learn_list)
             self.setText("")
-            self.update_learn_list()
+            # self.update_learn_list()
 
 
 # from SRC.Main import AppClass
