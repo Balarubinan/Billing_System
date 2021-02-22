@@ -5,6 +5,7 @@ import os
 import atexit
 # creates error sometimes look to it!!er
 import pickle
+import codecs
 
 
 class SLQLineEdit(QLineEdit):
@@ -36,8 +37,10 @@ class SLQLineEdit(QLineEdit):
     def load_shortcuts(self):
         # debugging purposes
         # create a file and store the shorcuts and create a window to get all the shortcuts
-
-        return {str(x): f"shortcut{x}" for x in range(16)}
+        # YAY works for tamil text too
+        with open("C:\\Users\\Balarubinan\\PycharmProjects\\Billing_system\\UI_files\\list_learner_files\\station_list.txt",'r',encoding="utf-8") as f:
+            return {str(x+1):y for x,y in enumerate(f.readlines())}
+        # return {str(x): f"shortcut{x}" for x in range(16)}
 
     def update_learn_list(self):
         cur_path = os.getcwd()
