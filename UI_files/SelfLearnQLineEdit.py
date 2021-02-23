@@ -1,11 +1,16 @@
+import PyQt5
+from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QLineEdit
 from PyQt5.QtWidgets import *
+
 import sys
 import os
 import atexit
 # creates error sometimes look to it!!er
 import pickle
 import codecs
+from tamil import utf8
+# suggestion for tamil are not working properly
 
 
 class SLQLineEdit(QLineEdit):
@@ -14,14 +19,19 @@ class SLQLineEdit(QLineEdit):
         super(SLQLineEdit, self).__init__(parent)
         self.learn_list = self.load()
         self.autoCompleter = QCompleter(self.learn_list)
+        # self.autoCompleter.setFilterMode()
+        self.autoCompleter.setCaseSensitivity(False)
         self.setCompleter(self.autoCompleter)
         self.returnPressed.connect(self.OnreturnPressed)
         atexit.register(self.update_learn_list)
         self.textChanged.connect(self.OnTextChange)
+        # these don't work!
+        # self.textEdited.connect(self.onEdit)
+        # self.editingFinished.connect(self.onEdit)
         if shortCutEnabled:
             self.shortCutMap = self.load_shortcuts()
         else:
-            self.shortCutMap=False
+            self.shortCutMap={}
 
     def load(self):
         try:
@@ -40,7 +50,11 @@ class SLQLineEdit(QLineEdit):
         # YAY works for tamil text too
         with open("C:\\Users\\Balarubinan\\PycharmProjects\\Billing_system\\UI_files\\list_learner_files\\station_list.txt",'r',encoding="utf-8") as f:
             return {str(x+1):y for x,y in enumerate(f.readlines())}
-        # return {str(x): f"shortcut{x}" for x in range(16)}
+
+    def get_tamil_str(self,string):
+        l=utf8.get_letters(string)
+        print(l)
+        return ''.join(l)
 
     def update_learn_list(self):
         cur_path = os.getcwd()
@@ -61,22 +75,25 @@ class SLQLineEdit(QLineEdit):
         if self.shortCutMap:
             self.setText(self.remove_shortcut_text())
         if self.text() not in self.learn_list:
-            # self.learn_list.append(self.text())
-            self.learn_list.append(self.text().strip(" "))
+            self.learn_list.append(self.text())
+            # self.learn_list.append(self.get_tamil_str(self.text().strip(" ")))
             newCompleter = QCompleter(self.learn_list)
             self.setCompleter(newCompleter)
             print("Current learn lis", self.learn_list)
             # self.setText("")
             # self.update_learn_list()
 
+    def onEdit(self):
+        print("Edditign fucn")
+
     def OnTextChange(self, text: str) -> None:
         try:
             if text in self.shortCutMap:
-                print("Shortcut detected!!")
+                print("Shortcut detected!!",text)
                 self.setText(self.text() + self.shortCutMap[text])
                 self.setSelection(1, len(self.text()))
             else:
-                print("Plain text change!")
+                print("Plain text change!",text)
         except(Exception) as e:
             print("Fucked up excpetion", e)
 
@@ -91,7 +108,11 @@ class demoAppClass(QMainWindow):
         # self.new_item=SLQLineEdit("vechicleNOOO")
         # self.setLayout(QLayout())
         self.CLRSearchInput = SLQLineEdit(self, Name="CLR learn",shortCutEnabled=True)
-        self.CLRSearchInput.setText("Fuekf you")
+        # self.CLRSearchInput.setText("Fuekf you")
+        self.CLRSearchInput.setFixedHeight(50)
+        self.CLRSearchInput.setFixedWidth(400)
+        self.setFixedHeight(500)
+        self.setFixedWidth(500)
         print("Ehi from demo class")
         self.show()
 
