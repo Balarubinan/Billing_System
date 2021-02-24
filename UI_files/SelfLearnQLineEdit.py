@@ -1,8 +1,8 @@
 import PyQt5
-from PyQt5.QtGui import QFont
+from PyQt5 import QtGui
+from PyQt5.QtGui import QFont,QStandardItem,QStandardItemModel
 from PyQt5.QtWidgets import QLineEdit
 from PyQt5.QtWidgets import *
-
 import sys
 import os
 import atexit
@@ -13,25 +13,33 @@ from tamil import utf8
 # suggestion for tamil are not working properly
 
 
+
+
 class SLQLineEdit(QLineEdit):
     def __init__(self, parent, Name, shortCutEnabled=False):
         self.Name = Name
         super(SLQLineEdit, self).__init__(parent)
-        self.learn_list = self.load()
-        self.autoCompleter = QCompleter(self.learn_list)
-        # self.autoCompleter.setFilterMode()
-        self.autoCompleter.setCaseSensitivity(False)
-        self.setCompleter(self.autoCompleter)
-        self.returnPressed.connect(self.OnreturnPressed)
-        atexit.register(self.update_learn_list)
-        self.textChanged.connect(self.OnTextChange)
-        # these don't work!
-        # self.textEdited.connect(self.onEdit)
-        # self.editingFinished.connect(self.onEdit)
         if shortCutEnabled:
             self.shortCutMap = self.load_shortcuts()
         else:
             self.shortCutMap={}
+
+        self.learn_list = self.load()
+        # self.model = QStandardItemModel()
+        # self.model.appendRow([QStandardItem(str(text)) for text in self.learn_list])
+        # self.model.appendRow([QStandardItem(str(text)) for text in self.learn_list])
+        self.autoCompleter = QCompleter(self.learn_list)
+        # self.autoCompleter = QCompleter(self.model,self)
+        # self.autoCompleter.setFilterMode()
+        self.autoCompleter.setCaseSensitivity(False)
+        # self.autoCompleter.setCompletionMode(QCompleter.InlineCompletion)
+        self.setCompleter(self.autoCompleter)
+        self.returnPressed.connect(self.OnreturnPressed)
+        atexit.register(self.update_learn_list)
+        # self.textChanged.connect(self.OnTextChange)
+        # these don't work!
+        self.textEdited.connect(self.OnTextChange)
+        # self.editingFinished.connect(self.onEdit)
 
     def load(self):
         try:
@@ -42,7 +50,7 @@ class SLQLineEdit(QLineEdit):
                 return (data)
         except(Exception) as e:
             print("Occuered exception is ", e)
-            return ['Null List']
+            return ['Null']
 
     def load_shortcuts(self):
         # debugging purposes
@@ -72,16 +80,26 @@ class SLQLineEdit(QLineEdit):
         return ''.join([x for x in self.text() if x not in self.shortCutMap])
 
     def OnreturnPressed(self):
-        if self.shortCutMap:
-            self.setText(self.remove_shortcut_text())
-        if self.text() not in self.learn_list:
-            self.learn_list.append(self.text())
-            # self.learn_list.append(self.get_tamil_str(self.text().strip(" ")))
-            newCompleter = QCompleter(self.learn_list)
-            self.setCompleter(newCompleter)
-            print("Current learn lis", self.learn_list)
-            # self.setText("")
-            # self.update_learn_list()
+        try:
+            if self.shortCutMap:
+                self.setText(self.remove_shortcut_text())
+            # if not self.model.findItems(self.text()):
+            #     print("Aded to list")
+            #     self.model.appendRow(QStandardItem(self.text().strip(" ")))
+            #     self.learn_list.append(self.text().strip(" "))
+            if self.text() not in self.learn_list:
+                self.learn_list.append(self.text().strip(" "))
+                # self.learn_list.append(self.get_tamil_str(self.text().strip(" ")))
+                # newCompleter = QCompleter(self.learn_list)
+                self.autoCompleter = QCompleter(self.learn_list)
+                self.setCompleter(self.autoCompleter)
+                # self.autoCompleter.setCompletionMode(QCompleter.InlineCompletion)
+                self.autoCompleter.setCompletionMode(QCompleter.PopupCompletion)
+                print("Current learn lis", self.learn_list)
+                self.setText(")")
+                # self.update_learn_list()
+        except(Exception) as e:
+            print("Excpetion ",e)
 
     def onEdit(self):
         print("Edditign fucn")
@@ -117,7 +135,7 @@ class demoAppClass(QMainWindow):
         self.show()
 
 
-app = QApplication(sys.argv)
-w = demoAppClass()
-w.show()
-sys.exit(app.exec_())
+# app = QApplication(sys.argv)
+# w = demoAppClass()
+# w.show()
+# sys.exit(app.exec_())
