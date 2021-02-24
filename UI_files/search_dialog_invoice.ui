@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SearchInvoiceDialog</class>
+ <widget class="QDialog" name="SearchInvoiceDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1109</width>
+    <height>726</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Search Invoices</string>
+  </property>
+  <widget class="QTableView" name="ResultTableView">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>20</y>
+     <width>601</width>
+     <height>681</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>30</y>
+     <width>191</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Search By Date:</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="InvoiceSearchButton">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>270</y>
+     <width>161</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>SEARCH</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>110</y>
+     <width>141</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Start Date:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>170</y>
+     <width>141</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>End Date:</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="StartDateCal">
+   <property name="geometry">
+    <rect>
+     <x>380</x>
+     <y>120</y>
+     <width>81</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Calender</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="EndDateCal">
+   <property name="geometry">
+    <rect>
+     <x>380</x>
+     <y>173</y>
+     <width>81</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Calender</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="PrintInvoiceResults">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>477</y>
+     <width>121</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>PRINT RESULTS</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="DeleteInvoiceResults">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>477</y>
+     <width>130</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>DELETE RESULTS</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_6">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>477</y>
+     <width>111</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>OKAY</string>
+   </property>
+  </widget>
+  <widget class="QDateEdit" name="StartDateInvoiceInput">
+   <property name="geometry">
+    <rect>
+     <x>184</x>
+     <y>118</y>
+     <width>181</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QDateEdit" name="EndDateInvoiveInput">
+   <property name="geometry">
+    <rect>
+     <x>184</x>
+     <y>170</y>
+     <width>181</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>pushButton_6</sender>
+   <signal>clicked()</signal>
+   <receiver>SearchInvoiceDialog</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>425</x>
+     <y>497</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>409</x>
+     <y>429</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
