@@ -14,14 +14,11 @@ class WW(TEST_WIDGET,QDialog):
         # self.pushButton.clicked.connect()
         # self.wid=self.calendarWidget
 
-app = QApplication(sys.argv)
-w = WW()
-# QCalendarWidget().selectedDate()
-w.show()
-app.exec_()
-# the date attribute persists in the Calender widget....
-# replace this widget in the Main Billing section date selection!
-print("selected date was ",w.end_date,w.start_date)
-
-
-
+# app = QApplication(sys.argv)
+# w = WW()
+# # QCalendarWidget().selectedDate()
+# w.show()
+# app.exec_()
+# # the date attribute persists in the Calender widget....
+# # replace this widget in the Main Billing section date selection!
+# print("selected date was ",w.end_date,w.start_date)
