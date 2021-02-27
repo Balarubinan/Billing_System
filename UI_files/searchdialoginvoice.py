@@ -12,7 +12,7 @@ from UI_files.calenderpopup import Ui_CalenderInputDialog
 from UI_files.STable import STable
 
 
-class Ui_SearchInvoiceDialog(object):
+class Ui_SearchInvoiceDialog(QtWidgets.QDialog, object):
     def setupUi(self, SearchInvoiceDialog):
         SearchInvoiceDialog.setObjectName("SearchInvoiceDialog")
         SearchInvoiceDialog.resize(1109, 726)

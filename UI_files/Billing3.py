@@ -141,6 +141,10 @@ class Ui_MainWindow(object):
         self.RateInput = QtWidgets.QLineEdit(self.BotFrame)
         self.RateInput.setGeometry(QtCore.QRect(840, 92, 211, 31))
         self.RateInput.setObjectName("RateInput")
+        self.RateInput.setText("999")
+        # editied
+        self.RateInput.setReadOnly(False)
+
         self.label_22 = QtWidgets.QLabel(self.BotFrame)
         self.label_22.setGeometry(QtCore.QRect(760, 91, 191, 31))
         font = QtGui.QFont()
@@ -336,6 +340,11 @@ class Ui_MainWindow(object):
         self.TableAreaTop = QtWidgets.QTableView(self.TopFrame)
         self.TableAreaTop.setGeometry(QtCore.QRect(0, 51, 1351, 371))
         self.TableAreaTop.setObjectName("TableAreaTop")
+        # editied
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.TableAreaTop.setFont(font)
+        #
         self.label = QtWidgets.QLabel(self.TopFrame)
         self.label.setGeometry(QtCore.QRect(10, 12, 161, 31))
         font = QtGui.QFont()

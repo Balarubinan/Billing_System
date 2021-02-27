@@ -5,7 +5,7 @@ from sqlalchemy.orm import relationship
 Base = declarative_base()
 # lazy connect happens.....meaning  the database might not actually be connected
 # right after this statement
-db = create_engine('sqlite:///BillingTest1DB.db',echo=True)
+db = create_engine('sqlite:///BillingTest1DB.db', echo=False)
 
 
 # from sqlalchemy import Column, Integer, String, Date
@@ -54,12 +54,14 @@ class Invoice(Base):
     CLR=Column(String)
     date=Column(Date)
     branch=Column(String)
-    CNRGST=Column(Float)
-    CNEGST=Column(Float)
     # check if number encoding for choices speeds it up
     LRType=Column(String)
-    Hcharge=Column(Float)
-    Crossing=Column(Float)
+    # not nessaccry as only ttl amt is needed
+    # CNRGST=Column(Float)
+    # CNEGST=Column(Float)
+    # Hcharge=Column(Float)
+    # Crossing=Column(Float)
+    Freight = Column(Float)
     Totalamt=Column(Float)
     Items=relationship("InvoiceItems",cascade="all, delete, delete-orphan")
 
@@ -71,19 +73,22 @@ class InvoiceItems(Base):
     name = Column(String, primary_key=True)
     rate = Column(BigInteger)
     avail = Column(Boolean)
+    qty = Column(Integer)
+
 
 class CountVariable(Base):
     __tablename__="Vars"
     id=Column(Integer,primary_key=True)
-    last_invoice_num=Column(Integer)
-    last_print_invoice_num=Column(Integer)
+    last_invoice_num = Column(Integer, default=1)
+    last_print_invoice_num = Column(Integer, default=1)
+    last_CLR = Column(Integer, default=1)
+
 
 # changing schema persists the data => that's so cool
 
 # creates the database actually!
 # uncomment only the first time of creation of the database!
-# Base.metadata.create_all(db)
-
+Base.metadata.create_all(db)
 # check if you need to explicity close DB connections!
 
 
