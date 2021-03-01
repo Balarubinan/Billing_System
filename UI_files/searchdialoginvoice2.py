@@ -10,7 +10,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_SearchInvoiceDialog(object):
+class Ui_SearchInvoiceDialog(QtWidgets.QDialog, object):
     def setupUi(self, SearchInvoiceDialog):
         SearchInvoiceDialog.setObjectName("SearchInvoiceDialog")
         SearchInvoiceDialog.resize(1109, 726)

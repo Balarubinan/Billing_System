@@ -58,6 +58,14 @@ def del_from_invoice(sdate,edate,station):
     except(Exception) as e:
         print("ERR INVOICE DELETE",e)
 
+
+def del_by_using_record(record):
+    try:
+        session.delete(record)
+        session.commit()
+    except(Exception) as e:
+        print("ERR DEL BY RECORD ", e)
+
 def del_one_from_invoice(inv_no):
     try:
         selected=session.query(Invoice).filter(Invoice.inv_no==inv_no).delete()

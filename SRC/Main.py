@@ -61,12 +61,21 @@ class AppClass(QMainWindow, Ui_MainWindow):
 
     def search_dialog(self):
         # self.popup=QDialog()
-        self.searchDiag = SearchBox()
-        self.searchDiag.setupUi(self.searchDiag)
-        self.searchDiag.exec_()
+        try:
+            # self.popup=QDialog()
+            self.searchDiag = SearchBox()
+            self.searchDiag.setupUi(self.searchDiag)
+            self.searchDiag.initialise_params()
+            self.searchDiag.exec_()
+            # self.searchDiag.exec_()
+        except(Exception) as e:
+            print("Error is ", e)
 
-    def show_message(self, msg):
+    def show_message(self, msg, title="message"):
         # implement QMessage box call here
+        self.QM.setWindowTitle(title)
+        self.QM.setText(msg)
+        self.QM.exec_()
         print(msg)
 
     def LoadOrAddItem(self):
@@ -134,7 +143,8 @@ class AppClass(QMainWindow, Ui_MainWindow):
             branch = self.BranchComboBox.currentText()
             data_dict = {
                 "CNE": CNE, "CNR": CNR, "ToStation": station, "LRType": lrtype, "Items": self.current_invoice_items,
-                "branch": branch, "date": date, "CLR": CLR, "inv_no": inv_no, "Totalamt": totalamt, "Freight": freight
+                "branch": branch, "date": date, "CLR": CLR, "inv_no": inv_no, "Totalamt": totalamt, "Freight": freight,
+                "Vehno": vechno
             }
             write_to_invoice(data_dict)
             # clearing all the textfields
@@ -152,6 +162,7 @@ class AppClass(QMainWindow, Ui_MainWindow):
             self.CLRNumber.setText(str(self.last_CLR))
         except(Exception) as e:
             print("ERROR ", e)
+
 
 try:
     app = QApplication(sys.argv)

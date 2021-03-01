@@ -18,7 +18,7 @@ class WW(TEST_WIDGET,QDialog):
 app = QApplication(sys.argv)
 w = WW()
 # QCalendarWidget().selectedDate()
-w.show()
+# w.show()
 app.exec_()
 # # the date attribute persists in the Calender widget....
 # # replace this widget in the Main Billing section date selection!

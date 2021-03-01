@@ -45,14 +45,15 @@ class STable(QTableWidget):
         self.clear()
 
     # rdata -> An 1D array
-    def insert_row(self,rdata:list):
+    def insert_row(self, rdata: list, mode="fit_parent"):
         if len(rdata)>self.columnCount():
             raise Exception("Invalid data shape for row")
         cnt=self.rowCount()
         self.insertRow(cnt)
         width=floor(self.parent().width() / self.columnCount())
         for x in range(len(rdata)):
-            self.setColumnWidth(x, width)
+            if mode == "fit_parent":
+                self.setColumnWidth(x, width)
             self.setItem(cnt, x, QTableWidgetItem(str(rdata[x])))
 
     # use int to get a row full of numbers

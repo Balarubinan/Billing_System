@@ -5,7 +5,7 @@ from sqlalchemy.orm import relationship
 Base = declarative_base()
 # lazy connect happens.....meaning  the database might not actually be connected
 # right after this statement
-db = create_engine('sqlite:///BillingTest1DB.db', echo=False)
+db = create_engine('sqlite:///BillingCurrentDB.db', echo=False)
 
 
 # from sqlalchemy import Column, Integer, String, Date
@@ -63,6 +63,7 @@ class Invoice(Base):
     # Crossing=Column(Float)
     Freight = Column(Float)
     Totalamt=Column(Float)
+    Vehno = Column(String)
     Items=relationship("InvoiceItems",cascade="all, delete, delete-orphan")
 
 
@@ -88,7 +89,7 @@ class CountVariable(Base):
 
 # creates the database actually!
 # uncomment only the first time of creation of the database!
-# Base.metadata.create_all(db)
+Base.metadata.create_all(db)
 # check if you need to explicity close DB connections!
 
 
