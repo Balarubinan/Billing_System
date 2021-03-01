@@ -5,7 +5,7 @@ from SRC.DatabaseFiles.DatabaseFunctions import *
 from PyQt5.QtWidgets import *
 import sys
 from UI_files.STable import STable
-from UI_files.searchdialoginvoice import Ui_SearchInvoiceDialog
+from UI_files.searchDiagDerived import SearchBox
 from datetime import datetime
 
 
@@ -61,7 +61,7 @@ class AppClass(QMainWindow, Ui_MainWindow):
 
     def search_dialog(self):
         # self.popup=QDialog()
-        self.searchDiag = Ui_SearchInvoiceDialog()
+        self.searchDiag = SearchBox()
         self.searchDiag.setupUi(self.searchDiag)
         self.searchDiag.exec_()
 

@@ -88,7 +88,7 @@ class CountVariable(Base):
 
 # creates the database actually!
 # uncomment only the first time of creation of the database!
-Base.metadata.create_all(db)
+# Base.metadata.create_all(db)
 # check if you need to explicity close DB connections!
 
 

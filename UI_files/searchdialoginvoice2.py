@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'search_dialog_invoice.ui'
+# Form implementation generated from reading ui file 'serachdialoginvoice2.ui'
 #
 # Created by: PyQt5 UI code generator 5.14.1
 #
@@ -8,11 +8,9 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from UI_files.calenderpopup import Ui_CalenderInputDialog
-from UI_files.STable import STable
 
 
-class Ui_SearchInvoiceDialog(QtWidgets.QDialog, object):
+class Ui_SearchInvoiceDialog(object):
     def setupUi(self, SearchInvoiceDialog):
         SearchInvoiceDialog.setObjectName("SearchInvoiceDialog")
         SearchInvoiceDialog.resize(1109, 726)
@@ -20,13 +18,13 @@ class Ui_SearchInvoiceDialog(QtWidgets.QDialog, object):
         self.ResultTableView.setGeometry(QtCore.QRect(480, 20, 601, 681))
         self.ResultTableView.setObjectName("ResultTableView")
         self.label = QtWidgets.QLabel(SearchInvoiceDialog)
-        self.label.setGeometry(QtCore.QRect(20, 30, 191, 31))
+        self.label.setGeometry(QtCore.QRect(20, 30, 271, 31))
         font = QtGui.QFont()
         font.setPointSize(15)
         self.label.setFont(font)
         self.label.setObjectName("label")
         self.InvoiceSearchButton = QtWidgets.QPushButton(SearchInvoiceDialog)
-        self.InvoiceSearchButton.setGeometry(QtCore.QRect(150, 270, 161, 51))
+        self.InvoiceSearchButton.setGeometry(QtCore.QRect(150, 340, 161, 51))
         self.InvoiceSearchButton.setObjectName("InvoiceSearchButton")
         self.label_2 = QtWidgets.QLabel(SearchInvoiceDialog)
         self.label_2.setGeometry(QtCore.QRect(20, 110, 141, 31))
@@ -61,6 +59,34 @@ class Ui_SearchInvoiceDialog(QtWidgets.QDialog, object):
         self.EndDateInvoiveInput = QtWidgets.QDateEdit(SearchInvoiceDialog)
         self.EndDateInvoiveInput.setGeometry(QtCore.QRect(184, 170, 181, 31))
         self.EndDateInvoiveInput.setObjectName("EndDateInvoiveInput")
+        self.label_4 = QtWidgets.QLabel(SearchInvoiceDialog)
+        self.label_4.setGeometry(QtCore.QRect(20, 220, 141, 31))
+        font = QtGui.QFont()
+        font.setPointSize(15)
+        self.label_4.setFont(font)
+        self.label_4.setObjectName("label_4")
+        self.lineEdit = QtWidgets.QLineEdit(SearchInvoiceDialog)
+        self.lineEdit.setGeometry(QtCore.QRect(183, 220, 181, 31))
+        self.lineEdit.setObjectName("lineEdit")
+        self.label_5 = QtWidgets.QLabel(SearchInvoiceDialog)
+        self.label_5.setGeometry(QtCore.QRect(20, 270, 151, 31))
+        font = QtGui.QFont()
+        font.setPointSize(15)
+        self.label_5.setFont(font)
+        self.label_5.setObjectName("label_5")
+        self.comboBox = QtWidgets.QComboBox(SearchInvoiceDialog)
+        self.comboBox.setGeometry(QtCore.QRect(190, 271, 171, 31))
+        self.comboBox.setObjectName("comboBox")
+        self.comboBox.addItem("")
+        self.comboBox.addItem("")
+        self.comboBox.addItem("")
+        self.comboBox.addItem("")
+        self.comboBox.addItem("")
+        self.line = QtWidgets.QFrame(SearchInvoiceDialog)
+        self.line.setGeometry(QtCore.QRect(20, 80, 451, 16))
+        self.line.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line.setObjectName("line")
 
         self.retranslateUi(SearchInvoiceDialog)
         self.pushButton_6.clicked.connect(SearchInvoiceDialog.close)
@@ -69,7 +95,7 @@ class Ui_SearchInvoiceDialog(QtWidgets.QDialog, object):
     def retranslateUi(self, SearchInvoiceDialog):
         _translate = QtCore.QCoreApplication.translate
         SearchInvoiceDialog.setWindowTitle(_translate("SearchInvoiceDialog", "Search Invoices"))
-        self.label.setText(_translate("SearchInvoiceDialog", "Search By Date:"))
+        self.label.setText(_translate("SearchInvoiceDialog", "Search Saved Invoices:"))
         self.InvoiceSearchButton.setText(_translate("SearchInvoiceDialog", "SEARCH"))
         self.label_2.setText(_translate("SearchInvoiceDialog", "Start Date:"))
         self.label_3.setText(_translate("SearchInvoiceDialog", "End Date:"))
@@ -78,4 +104,10 @@ class Ui_SearchInvoiceDialog(QtWidgets.QDialog, object):
         self.PrintInvoiceResults.setText(_translate("SearchInvoiceDialog", "PRINT RESULTS"))
         self.DeleteInvoiceResults.setText(_translate("SearchInvoiceDialog", "DELETE RESULTS"))
         self.pushButton_6.setText(_translate("SearchInvoiceDialog", "OKAY"))
-
+        self.label_4.setText(_translate("SearchInvoiceDialog", "Station:"))
+        self.label_5.setText(_translate("SearchInvoiceDialog", "Branch Code:"))
+        self.comboBox.setItemText(0, _translate("SearchInvoiceDialog", "All branches"))
+        self.comboBox.setItemText(1, _translate("SearchInvoiceDialog", "A"))
+        self.comboBox.setItemText(2, _translate("SearchInvoiceDialog", "B"))
+        self.comboBox.setItemText(3, _translate("SearchInvoiceDialog", "C"))
+        self.comboBox.setItemText(4, _translate("SearchInvoiceDialog", "D"))

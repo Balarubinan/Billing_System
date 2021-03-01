@@ -4,11 +4,12 @@ from pickle import load, dump
 import os
 
 # engine=create_engine('sqlite:///./DatabaseFiles/BillingTest1DB.db')
+Base.metadata.create_all(db)
 SessMaker = sessionmaker(db)
 session=SessMaker()
 
-vars_dict = load(open('DatabaseFiles/fileTMP/variables.pkl', 'rb'))
-print(vars_dict)
+# vars_dict = load(open('DatabaseFiles/fileTMP/variables.pkl', 'rb'))
+# print(vars_dict)
 
 
 
@@ -22,10 +23,23 @@ def write_to_invoice(data_dict:dict):
     except(Exception) as e:
         print("ERR INVOICE WRITE",e)
 
-def fetch_from_invoice(station,date,branch):
+def fetch_from_invoice(station,sdate,edate,branch):
     try:
         # shows a red error line but works fine
-        results=session.query(Invoice).filter(Invoice.ToStation == station)
+        if station is None:
+            if "All" in branch:
+                results = session.query(Invoice).filter(Invoice.date >= sdate,
+                                                    Invoice.date <= edate)
+            else:
+                results = session.query(Invoice).filter(Invoice.date >= sdate,
+                                                        Invoice.date <= edate,Invoice.branch == branch)
+        else:
+            if "All" in branch:
+                results = session.query(Invoice).filter(Invoice.ToStation==station,Invoice.date >= sdate,
+                                                        Invoice.date <= edate)
+            else:
+                results = session.query(Invoice).filter(Invoice.ToStation==station,Invoice.date >= sdate,
+                                                        Invoice.date <= edate, Invoice.branch == branch)
         # every item in the results is an object of the Invoice instance
         return results
     except(Exception) as e:
