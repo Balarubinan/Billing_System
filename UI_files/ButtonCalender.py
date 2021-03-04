@@ -2,8 +2,8 @@ from PyQt5.QtWidgets import QPushButton,QCalendarWidget,QDialog
 from UI_files.calenderpopup import Ui_CalenderInputDialog
 
 class ButtonCalender(QPushButton):
-    def __init__(self):
-        super(ButtonCalender, self).__init__()
+    def __init__(self, parent):
+        super(ButtonCalender, self).__init__(parent)
         self.setText("--select date--")
         self.clicked.connect(self.OnClick)
         self.selected_date=None

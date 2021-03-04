@@ -409,9 +409,11 @@ class Ui_MainWindow(object):
         font.setPointSize(15)
         self.label_15.setFont(font)
         self.label_15.setObjectName("label_15")
-        self.ChangeAsButtonCalInvoice = QtWidgets.QLineEdit(self.InvoiceTopFrame)
-        self.ChangeAsButtonCalInvoice.setGeometry(QtCore.QRect(810, 50, 211, 31))
-        self.ChangeAsButtonCalInvoice.setObjectName("ChangeAsButtonCalInvoice")
+        # Edited
+        # self.ChangeAsButtonCalInvoice = QtWidgets.QLineEdit(self.InvoiceTopFrame)
+        # self.ChangeAsButtonCalInvoice.setGeometry(QtCore.QRect(810, 50, 211, 31))
+        # self.ChangeAsButtonCalInvoice.setObjectName("ChangeAsButtonCalInvoice")
+        # edit -> end
         self.PrintInvoiceNumInput = QtWidgets.QLineEdit(self.InvoiceTopFrame)
         self.PrintInvoiceNumInput.setGeometry(QtCore.QRect(270, 50, 211, 31))
         self.PrintInvoiceNumInput.setObjectName("PrintInvoiceNumInput")
@@ -421,9 +423,13 @@ class Ui_MainWindow(object):
         font.setPointSize(15)
         self.label_17.setFont(font)
         self.label_17.setObjectName("label_17")
-        self.comboBox = QtWidgets.QComboBox(self.InvoiceTopFrame)
-        self.comboBox.setGeometry(QtCore.QRect(270, 100, 211, 31))
-        self.comboBox.setObjectName("comboBox")
+        # editied
+        # self.comboBox = QtWidgets.QComboBox(self.InvoiceTopFrame)
+        # self.comboBox.setGeometry(QtCore.QRect(270, 100, 211, 31))
+        # self.comboBox.setObjectName("comboBox")
+        self.InvoiceStationInput = QtWidgets.QLineEdit(self.InvoiceTopFrame)
+        self.InvoiceStationInput.setGeometry(QtCore.QRect(270, 100, 211, 31))
+        # edit -> end
         self.label_40 = QtWidgets.QLabel(self.InvoiceTopFrame)
         self.label_40.setGeometry(QtCore.QRect(10, 99, 211, 31))
         font = QtGui.QFont()

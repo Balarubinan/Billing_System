@@ -3,9 +3,10 @@ import sys
 from UI_files.calenderpopup import Ui_CalenderInputDialog
 from UI_files.searchDiagDerived import SearchBox
 from UI_files.ButtonCalender import ButtonCalender
+from UI_files.SelfLearnQLineEdit import SLQLineEdit
 from PyQt5.QtWidgets import QCalendarWidget, QApplication,QDialog
 
-TEST_WIDGET=SearchBox
+TEST_WIDGET = SLQLineEdit
 
 class WW(TEST_WIDGET,QDialog):
     def __init__(self):

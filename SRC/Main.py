@@ -1,4 +1,4 @@
-from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QFont, QKeySequence
 
 from UI_files.Billing6 import Ui_MainWindow
 from SRC.DatabaseFiles.DatabaseFunctions import *
@@ -6,7 +6,9 @@ from PyQt5.QtWidgets import *
 import sys
 from UI_files.STable import STable
 from UI_files.searchDiagDerived import SearchBox
+from UI_files.ButtonCalender import ButtonCalender
 from datetime import datetime
+from SRC.miscfunctions import *
 
 
 # for some reason adding QDialog in the AppClass Creates error !
@@ -39,7 +41,25 @@ class AppClass(QMainWindow, Ui_MainWindow):
         # self.menufile.triggered[QAction].connect(self.fileaction)
         self.actionExit.triggered.connect(self.quit_application)
         self.actionFile_search.triggered.connect(self.search_dialog)
+        self.InvoiceDate = ButtonCalender(self.InvoiceTopFrame)
+        # Tab_2
+        self.InvoiceTable = STable(self.InvoiceMainTableView)
+        self.InvoiceTable.init_table(cols=11, headers=['SNO', 'DATE', 'CLR', 'TO STATION', 'CONSIGNER', 'CONSIGNEE',
+                                                       'FREIGHT', 'TOTAL AMT', 'VEH NUMBER', 'INV NO', 'ITEMS'])
 
+        # self.MainTabWidget.tabBarClicked.connect(self.init_tab_2)
+        self.PrintInvoiceNumInput.textChanged.connect(self.add_search_results)
+
+        # data_dict = {
+        #     "CNE": "Bala", "CNR": "BAla e", "ToStation": "madurai", "LRType": "PAID", "Items":[],
+        #     "branch": "A", "date":datetime(year=2000,day=2,month=11), "CLR": "123", "inv_no": "37", "Totalamt": 1000, "Freight": 500,
+        #     "Vehno":"TN89 A456"
+        # }
+        # write_to_invoice(data_dict)
+        #
+
+        # self.comboBox is the Invoice station box
+        # self.tab_2.isActiveWindow.connect(self.InvoiceSectionOpen)
         #
         # self.billing_table.insert_row(["this"]*6)
         # for x in "Balarubinan":
@@ -55,9 +75,18 @@ class AppClass(QMainWindow, Ui_MainWindow):
         # self.CLRNumber.setReadOnly(False)
         # self.CLRNumber.setObjectName("CLRNumber")
 
+    def define_shorcuts(self):
+        """create al shorcuts here and display all of them in the display window"""
+        # shorcut examples
+        self.quitSc = QShortcut(QKeySequence('Ctrl+Y'), self)
+        self.quitSc.activated.connect(self.quit_application)
+        pass
+
     def quit_application(self, q: QAction):
         # add a confirmation dialog and save current progress hhere
+
         print("quit app called")
+        self.close()
 
     def search_dialog(self):
         # self.popup=QDialog()
@@ -89,18 +118,16 @@ class AppClass(QMainWindow, Ui_MainWindow):
     def ItemAdd(self):
         print("Add Item called!")
         name, rate, qty = self.ItemNameInput.text(), self.RateInput.text(), self.QtyInput.text()
-        if not rate.replace('.', '', 1).isdecimal() or not qty.replace('.', '', 1).isdecimal():
+        if not validate_decimal(rate) or not validate_decimal(qty):
             self.show_message('Enter only digits for rate and qty!')
             return
         try:
             rate, qty = float(rate), float(qty)
             if self.itemmode is "new":
                 # self.newitemflag="update"
-                # write_to_item_list(name,rate)
-                pass
-            elif self.ItemRateDict[name] != str(rate):
-                # update_item_list(name,rate)
-                pass
+                write_to_item_list(name, rate)
+            elif name in self.ItemRateDict and self.ItemRateDict[name] != str(rate):
+                update_item_list(name, rate)
                 # check if it is okay to do this
 
             self.ItemRateDict[name] = rate
@@ -127,7 +154,8 @@ class AppClass(QMainWindow, Ui_MainWindow):
 
             totalamt = float(self.TotalAmountLabel.text())
             freight = crossing + hcharge
-            sno_next = sno_get_next()
+            # sno_next = sno_get_next()
+            sno_next = self.invoicetoptable.rowCount() + 1
             inv_no = get_next_invno()
             # check if CLR nummber is the actuall name of the input widget!!
             CLR, CNE, CNR = self.CLRNumber.text(), self.CNEInput.text(), self.CNRInput.text()
@@ -140,6 +168,8 @@ class AppClass(QMainWindow, Ui_MainWindow):
             date = date.toPyDateTime()
             self.invoicetoptable.insert_row([sno_next, date, CLR, station, CNR, CNE, freight, totalamt, vechno, inv_no,
                                              len(self.current_invoice_items)])
+            # the above line shows the number of unique items ie item1 -> 20 ,item2 -> 10 will
+            # be shown as 2 items in the items column in the invoice top table
             branch = self.BranchComboBox.currentText()
             data_dict = {
                 "CNE": CNE, "CNR": CNR, "ToStation": station, "LRType": lrtype, "Items": self.current_invoice_items,
@@ -152,7 +182,6 @@ class AppClass(QMainWindow, Ui_MainWindow):
                 if type(x) == QLineEdit:
                     x.setText("")
             # clearing the table
-            # rows are empty but still are there -> remove them too
             # self.billing_table.clear()
             self.billing_table.setRowCount(0)
             # self.billing_table.clear_table()
@@ -162,6 +191,30 @@ class AppClass(QMainWindow, Ui_MainWindow):
             self.CLRNumber.setText(str(self.last_CLR))
         except(Exception) as e:
             print("ERROR ", e)
+
+    def add_search_results(self):
+        try:
+            self.InvoiceTable.setRowCount(0)
+            station, branch = self.InvoiceStationInput.text(), self.InvoiceBranchCode.currentText()
+            date = self.InvoiceDate.getDate()
+            if None in (station, branch, date):
+                return
+            else:
+                print(station, date, branch)
+                res = fetch_from_invoice(station=station, sdate=date, edate=date, branch=branch)
+                print("res arraay is", [x for x in res])
+                for sno, x in enumerate(res):
+                    self.InvoiceTable.insert_row(
+                        [sno + 1, date, x.CLR, x.ToStation, x.CNR, x.CNE, x.Freight, x.Totalamt, x.Vehno, x.inv_no,
+                         len(x.Items)])
+        except(Exception) as e:
+            print("Error init_tab2", e)
+
+
+
+
+
+
 
 
 try:

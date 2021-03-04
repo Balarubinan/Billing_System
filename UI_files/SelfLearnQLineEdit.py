@@ -135,8 +135,7 @@ class demoAppClass(QMainWindow):
         self.show()
 
 
-
-# app = QApplication(sys.argv)
-# w = demoAppClass()
-# w.show()
-# sys.exit(app.exec_())
+app = QApplication(sys.argv)
+w = demoAppClass()
+w.show()
+sys.exit(app.exec_())
