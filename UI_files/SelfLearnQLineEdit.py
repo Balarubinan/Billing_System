@@ -1,5 +1,5 @@
 import PyQt5
-from PyQt5 import QtGui
+from PyQt5 import QtGui, QtCore
 from PyQt5.QtGui import QFont,QStandardItem,QStandardItemModel
 from PyQt5.QtWidgets import QLineEdit
 from PyQt5.QtWidgets import *
@@ -18,7 +18,9 @@ from tamil import utf8
 class SLQLineEdit(QLineEdit):
     def __init__(self, parent, Name, shortCutEnabled=False):
         self.Name = Name
+        # setting readonly to avoid entering characters
         super(SLQLineEdit, self).__init__(parent)
+        # self.setReadOnly(True)
         if shortCutEnabled:
             self.shortCutMap = self.load_shortcuts()
         else:
@@ -31,7 +33,7 @@ class SLQLineEdit(QLineEdit):
         self.autoCompleter = QCompleter(self.learn_list)
         # self.autoCompleter = QCompleter(self.model,self)
         # self.autoCompleter.setFilterMode()
-        self.autoCompleter.setCaseSensitivity(False)
+        # self.autoCompleter.setCaseSensitivity()
         # self.autoCompleter.setCompletionMode(QCompleter.InlineCompletion)
         self.setCompleter(self.autoCompleter)
         self.returnPressed.connect(self.OnreturnPressed)
@@ -105,6 +107,7 @@ class SLQLineEdit(QLineEdit):
         print("Edditign fucn")
 
     def OnTextChange(self, text: str) -> None:
+        print("Caaledn")
         try:
             if text in self.shortCutMap:
                 print("Shortcut detected!!",text)
@@ -114,6 +117,27 @@ class SLQLineEdit(QLineEdit):
                 print("Plain text change!",text)
         except(Exception) as e:
             print("Fucked up excpetion", e)
+
+    # def keyPressEvent(self, event: QtGui.QKeyEvent) -> None:
+    #     try:
+    #
+    #         # print(chr(event.key()))
+    #         if event.key() in (QtCore.Qt.Key_Backspace,QtCore.Qt.Key_Enter,QtCore.Qt.Key_Return):
+    #             pass
+    #         else:
+    #             self.setText(self.text()+chr(event.key()))
+    #             self.OnTextChange(self.text())
+    #
+    #         if event.key() in (QtCore.Qt.Key_Return,QtCore.Qt.Key_Enter):
+    #             print("Killing")
+    #             self.OnreturnPressed()
+    #             # self.deleteLater()
+    #         if event.key()==QtCore.Qt.Key_Backspace:
+    #             self.setText(self.text()[:len(self.text())-1])
+    #         event.accept()
+    #     except(Exception) as e:
+    #         print("Error is ",e)
+
 
 
 # from SRC.Main import AppClass
