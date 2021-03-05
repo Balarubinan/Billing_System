@@ -1,5 +1,5 @@
 import PyQt5
-from PyQt5 import QtGui, QtCore
+from PyQt5 import QtGui, QtCore, QtWidgets
 from PyQt5.QtGui import QFont,QStandardItem,QStandardItemModel
 from PyQt5.QtWidgets import QLineEdit
 from PyQt5.QtWidgets import *
@@ -40,6 +40,8 @@ class SLQLineEdit(QLineEdit):
         atexit.register(self.update_learn_list)
         # self.textChanged.connect(self.OnTextChange)
         # these don't work!
+        # self.keyPressed=QtCore.pyqtSignal(QtCore.QEvent)
+        # self.keyPressed.connect(self.keyaction)
         self.textEdited.connect(self.OnTextChange)
         # self.editingFinished.connect(self.onEdit)
 
@@ -98,7 +100,7 @@ class SLQLineEdit(QLineEdit):
                 # self.autoCompleter.setCompletionMode(QCompleter.InlineCompletion)
                 self.autoCompleter.setCompletionMode(QCompleter.PopupCompletion)
                 print("Current learn lis", self.learn_list)
-                self.setText(")")
+                self.setText("")
                 # self.update_learn_list()
         except(Exception) as e:
             print("Excpetion ",e)
@@ -118,23 +120,25 @@ class SLQLineEdit(QLineEdit):
         except(Exception) as e:
             print("Fucked up excpetion", e)
 
-    # def keyPressEvent(self, event: QtGui.QKeyEvent) -> None:
+    # def keyPressEvent(self,event):
+    #     self.keyPressed.emit(event)
+
+    # def keyaction(self, event: QtGui.QKeyEvent) -> None:
+    # # def keyPressEvent1(self,event) -> None:
     #     try:
-    #
+    #         # self.keyPressed.emit(event)
     #         # print(chr(event.key()))
     #         if event.key() in (QtCore.Qt.Key_Backspace,QtCore.Qt.Key_Enter,QtCore.Qt.Key_Return):
     #             pass
     #         else:
     #             self.setText(self.text()+chr(event.key()))
-    #             self.OnTextChange(self.text())
-    #
+    #             pass
     #         if event.key() in (QtCore.Qt.Key_Return,QtCore.Qt.Key_Enter):
     #             print("Killing")
-    #             self.OnreturnPressed()
     #             # self.deleteLater()
     #         if event.key()==QtCore.Qt.Key_Backspace:
     #             self.setText(self.text()[:len(self.text())-1])
-    #         event.accept()
+    #         QtWidgets.QLineEdit.keyPressEvent(self, event)
     #     except(Exception) as e:
     #         print("Error is ",e)
 
@@ -158,8 +162,7 @@ class demoAppClass(QMainWindow):
         print("Ehi from demo class")
         self.show()
 
-
-app = QApplication(sys.argv)
-w = demoAppClass()
-w.show()
-sys.exit(app.exec_())
+# app = QApplication(sys.argv)
+# w = demoAppClass()
+# w.show()
+# sys.exit(app.exec_())

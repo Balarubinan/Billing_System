@@ -210,18 +210,10 @@ class AppClass(QMainWindow, Ui_MainWindow):
         except(Exception) as e:
             print("Error init_tab2", e)
 
-
-
-
-
-
-
-
-try:
-    app = QApplication(sys.argv)
-    w = AppClass()
-    w.show()
-    sys.exit(app.exec_())
-except(Exception) as e:
-    print("Exception in base code ",e)
-
+# try:
+#     app = QApplication(sys.argv)
+#     w = AppClass()
+#     w.show()
+#     sys.exit(app.exec_())
+# except(Exception) as e:
+#     print("Exception in base code ",e)
