@@ -47,11 +47,13 @@ class PrintedForms(Base):
 class Invoice(Base):
     """Stores the currently pending invoices"""
     __tablename__="InvoiceTable"
-    inv_no=Column(String,primary_key=True)
+    # inv_no is confirmed only on the invoice section
+    inv_no = Column(String)
     ToStation=Column(String)
     CNE=Column(String)
     CNR=Column(String)
-    CLR=Column(String)
+    # CLR is the primary key as it is determined at the time of entering the bill
+    CLR = Column(String, primary_key=True)
     date=Column(Date)
     branch=Column(String)
     # check if number encoding for choices speeds it up
@@ -59,8 +61,8 @@ class Invoice(Base):
     # not nessaccry as only ttl amt is needed
     # CNRGST=Column(Float)
     # CNEGST=Column(Float)
-    # Hcharge=Column(Float)
-    # Crossing=Column(Float)
+    Hcharge = Column(Float)
+    Crossing = Column(Float)
     Freight = Column(Float)
     Totalamt=Column(Float)
     Vehno = Column(String)
@@ -70,7 +72,7 @@ class Invoice(Base):
 class InvoiceItems(Base):
     """Move the data from this table to a backup table every month or so"""
     __tablename__ = "InvoiceItems"
-    inv_no=Column(String, ForeignKey('InvoiceTable.inv_no'))
+    inv_no = Column(String, ForeignKey('InvoiceTable.CLR'))
     name = Column(String, primary_key=True)
     rate = Column(BigInteger)
     avail = Column(Boolean)

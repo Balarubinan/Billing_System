@@ -74,6 +74,7 @@ class AppClass(QMainWindow, Ui_MainWindow):
         # self.CLRNumber.setText("")
         # self.CLRNumber.setReadOnly(False)
         # self.CLRNumber.setObjectName("CLRNumber")
+        self.invoicetoptable.itemClicked.connect(self.load_prev_LR)
 
     def define_shorcuts(self):
         """create al shorcuts here and display all of them in the display window"""
@@ -140,7 +141,7 @@ class AppClass(QMainWindow, Ui_MainWindow):
         except(Exception) as e:
             print("Erorr is ", e)
 
-    def finaliseCurrentLR(self):
+    def finaliseCurrentLR(self, mode=None):
         # calculate GST if needed
         try:
             if self.HChargeInput.text().replace('.', '', 1).isdecimal():
@@ -156,7 +157,9 @@ class AppClass(QMainWindow, Ui_MainWindow):
             freight = crossing + hcharge
             # sno_next = sno_get_next()
             sno_next = self.invoicetoptable.rowCount() + 1
-            inv_no = get_next_invno()
+            # inv_no is not needed here
+            # inv_no = get_next_invno()
+            inv_no = ""
             # check if CLR nummber is the actuall name of the input widget!!
             CLR, CNE, CNR = self.CLRNumber.text(), self.CNEInput.text(), self.CNRInput.text()
             station = self.ToStationInput.text()
@@ -173,10 +176,14 @@ class AppClass(QMainWindow, Ui_MainWindow):
             branch = self.BranchComboBox.currentText()
             data_dict = {
                 "CNE": CNE, "CNR": CNR, "ToStation": station, "LRType": lrtype, "Items": self.current_invoice_items,
-                "branch": branch, "date": date, "CLR": CLR, "inv_no": inv_no, "Totalamt": totalamt, "Freight": freight,
-                "Vehno": vechno
+                "branch": branch, "date": date, "CLR": CLR, "inv_no": "", "Totalamt": totalamt, "Freight": freight,
+                "Vehno": vechno, "Hcharge": hcharge, "Crossing": crossing
             }
-            write_to_invoice(data_dict)
+            # mdoe always falls to else part check it
+            if mode is None:
+                write_to_invoice(data_dict)
+            else:
+                update_by_CLR(CLR, data_dict)
             # clearing all the textfields
             for x in self.BotFrame.children():
                 if type(x) == QLineEdit:
@@ -210,10 +217,46 @@ class AppClass(QMainWindow, Ui_MainWindow):
         except(Exception) as e:
             print("Error init_tab2", e)
 
-# try:
-#     app = QApplication(sys.argv)
-#     w = AppClass()
-#     w.show()
-#     sys.exit(app.exec_())
-# except(Exception) as e:
-#     print("Exception in base code ",e)
+    def load_prev_LR(self):
+        # rowind returns a set of index objects each having the attrib .row()
+        # works us the item CLR to fetch the LR and show it to the corresponding texts
+        # in the LR form below....
+        # on Click New LR just save the current LR
+        try:
+            # to stop use from accidentally modifying the LR
+            self.CLRNumber.setReadOnly(True)
+            rowind = self.invoicetoptable.selectedIndexes()
+            res = self.invoicetoptable.get_row_contents(rowind[0].row())
+            # in the InvoicetopTable the CLR number is in the 3rd column
+            # so use 22 as the index
+            print(res[2], "Is the CLR number", type(res[2]))
+            results = fecth_by_CLR(int(res[2]))
+            # print(len(results))
+            # an array returned but only one Object is expected
+            print([x for x in results])
+            result: Invoice = [x for x in results][0]
+            self.CNRInput.setText(result.CNR)
+            self.CNEInput.setText(result.CNE)
+            self.CrossingInput.setText(str(result.Crossing))
+            self.HChargeInput.setText(str(result.Hcharge))
+            self.TotalAmountLabel.setText(str(result.Totalamt))
+            self.ToStationInput.setText(result.ToStation)
+            self.DateInput.setDate(result.date)
+            self.VechicleNumInput.setText(result.Vehno)
+
+            for x in result.Items:  # type:InvoiceItems
+                # x:InvoiceItems
+                self.billing_table.insert_row([x.qty, x.name, x.rate, str(float(x.qty) * float(x.rate))])
+
+            self.CLRNumber.setReadOnly(False)
+        except(Exception) as e:
+            print("ERROR LOAD ", e)
+
+
+try:
+    app = QApplication(sys.argv)
+    w = AppClass()
+    w.show()
+    sys.exit(app.exec_())
+except(Exception) as e:
+    print("Exception in base code ", e)

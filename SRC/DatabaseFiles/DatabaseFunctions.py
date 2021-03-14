@@ -4,12 +4,19 @@ from pickle import load, dump
 import os
 
 # engine=create_engine('sqlite:///./DatabaseFiles/BillingTest1DB.db')
+# the drop_all functions makes sure that tha last model schema is dropped
+# and refreshed with the new schema
+Base.metadata.drop_all(db)
 Base.metadata.create_all(db)
 SessMaker = sessionmaker(db)
 session=SessMaker()
 
+# SqlAlchemy creates a new file to make everytime when used with sqlite
+# the path below in comment is a test path when using UI files
 # vars_dict = load(open('DatabaseFiles/fileTMP/variables.pkl', 'rb'))
-# print(vars_dict)
+# this path is a working path
+vars_dict = load(open('fileTMP/variables.pkl', 'rb'))
+print(vars_dict)
 
 
 
@@ -20,6 +27,7 @@ def write_to_invoice(data_dict:dict):
         record=Invoice(**data_dict)
         session.add(record)
         session.commit()
+        print("Data written")
     except(Exception) as e:
         print("ERR INVOICE WRITE",e)
 
@@ -45,6 +53,24 @@ def fetch_from_invoice(station,sdate,edate,branch):
     except(Exception) as e:
         print("ERR INVOICE FETCH", e)
 
+
+def fecth_by_CLR(CLR):
+    try:
+        results = session.query(Invoice).filter(Invoice.CLR == CLR)
+        return results
+    except:
+        print("ERROR CLR FETCH")
+
+
+def update_by_CLR(CLR, datadict: dict):
+    # used for calling right after an LR is viewed from toptable
+    try:
+        results = session.query(Invoice).filter(Invoice.CLR == CLR).update(**datadict)
+        session.commit()
+    except(Exception) as e:
+        print("ERROR UPDATE BY CLR", e)
+
+
 def edit_invoice(invo_no):
     # needed??
     pass
@@ -66,11 +92,17 @@ def del_by_using_record(record):
     except(Exception) as e:
         print("ERR DEL BY RECORD ", e)
 
-def del_one_from_invoice(inv_no):
+
+def del_one_from_invoice(CLR, inv_no=None):
     try:
-        selected=session.query(Invoice).filter(Invoice.inv_no==inv_no).delete()
-        # session.delete(selected)
-        session.commit()
+        if inv_no is None:
+            selected = session.query(Invoice).filter(Invoice.CLR == CLR).delete()
+            # session.delete(selected)
+            session.commit()
+        else:
+            selected = session.query(Invoice).filter(Invoice.inv_no == inv_no).delete()
+            # session.delete(selected)
+            session.commit()
     except(Exception) as e:
         print("ERR INVOICE DELETE ONE ", e)
 
@@ -105,14 +137,13 @@ def fetch_all_ItemsList():
     # return a dictionary of items with values as rates
     # TEST CODE
     try:
-
         return {'item1': 80, 'item2': 770, 'item3': 900, 'item4': 100}
     except:
         pass
 
 
 def sno_get_next():
-    # write a function to fetch the last serila number for the current table!!
+    # write a function to fetch the last serial number for the current table!!
     try:
         return -1
     except:
@@ -129,7 +160,7 @@ def get_next_invno():
 
 
 def get_last_CLR():
-    # implement a function fo circulary allocate LCR numbers
+    # implement a function fo circularly allocate CLR numbers
     try:
         return vars_dict['last_CLR']
     except(Exception) as e:
@@ -148,12 +179,12 @@ def inc_CLR():
 
 
 def dump_dict():
-    file = open('DatabaseFiles/fileTMP/variables.pkl', 'wb')
+    # file = open('DatabaseFiles/fileTMP/variables.pkl', 'wb')
+    file = open('fileTMP/variables.pkl', 'wb')
     dump(vars_dict, file)
     file.close()
 
 # for x in range(5):
-#     inc_CLR()
 # print("Las ",get_last_CLR())
 
 
@@ -161,3 +192,4 @@ def dump_dict():
 # write_to_invoice({"CNE":"BALA1","inv_no":"111","ITEMS":['a','b','c']})
 # del_one_from_invoice(111)
 # check date arithmetic errors
+# fecth_by_CLR(33)
