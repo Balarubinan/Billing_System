@@ -79,6 +79,7 @@ class AppClass(QMainWindow, Ui_MainWindow):
     def define_shorcuts(self):
         """create al shorcuts here and display all of them in the display window"""
         # shorcut examples
+        # define new shortcuts here
         self.quitSc = QShortcut(QKeySequence('Ctrl+Y'), self)
         self.quitSc.activated.connect(self.quit_application)
         pass
@@ -102,7 +103,7 @@ class AppClass(QMainWindow, Ui_MainWindow):
             print("Error is ", e)
 
     def show_message(self, msg, title="message"):
-        # implement QMessage box call here
+        # implementing QMessage box
         self.QM.setWindowTitle(title)
         self.QM.setText(msg)
         self.QM.exec_()
@@ -160,7 +161,6 @@ class AppClass(QMainWindow, Ui_MainWindow):
             # inv_no is not needed here
             # inv_no = get_next_invno()
             inv_no = ""
-            # check if CLR nummber is the actuall name of the input widget!!
             CLR, CNE, CNR = self.CLRNumber.text(), self.CNEInput.text(), self.CNRInput.text()
             station = self.ToStationInput.text()
             vechno = self.VechicleNumInput.text()
@@ -260,3 +260,8 @@ try:
     sys.exit(app.exec_())
 except(Exception) as e:
     print("Exception in base code ", e)
+
+# Create a new Design
+# change Tab policy
+# Re-model Layout for auto resizing
+# Add Qwidget space in the main UI
