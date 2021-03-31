@@ -75,6 +75,24 @@ class AppClass(QMainWindow, Ui_MainWindow):
         # self.CLRNumber.setReadOnly(False)
         # self.CLRNumber.setObjectName("CLRNumber")
         self.invoicetoptable.itemClicked.connect(self.load_prev_LR)
+        self.billing_table.cellChanged.connect(self.check_end_LR)
+
+    def check_end_LR(self, row, column):
+        # checks if the current cell is last celll if so insert a blank row
+        # else is the current cell is the first cell then check if the cell is blank
+        # if yes then proceed to create new LR
+        try:
+            print(row, column)
+            # a always returns the first cell's id
+            a = self.billing_table.itemAt(row, column)
+            if a.text() == "" or column == 3:
+                r = self.billing_table.rowCount()
+                self.billing_table.setRowCount(r + 1)
+
+            # self.billing_table.insertRow(r+1)
+
+        except(Exception) as e:
+            print("ERROR ", e)
 
     def define_shorcuts(self):
         """create al shorcuts here and display all of them in the display window"""

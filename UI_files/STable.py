@@ -26,8 +26,8 @@ class STable(QTableWidget):
         # self.setFixedWidth(1000)
         # self.setFixedHeight(300)
         self.setHorizontalHeaderLabels(headers)
-        print(self.parentWidget().geometry())
-        print(self.parentWidget().objectName())
+        # print(self.parentWidget().geometry())
+        # print(self.parentWidget().objectName())
         self.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
         # self.setInputMethodHints()
         # self.
