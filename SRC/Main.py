@@ -78,16 +78,23 @@ class AppClass(QMainWindow, Ui_MainWindow):
         self.billing_table.cellChanged.connect(self.check_end_LR)
 
     def check_end_LR(self, row, column):
-        # checks if the current cell is last celll if so insert a blank row
+        # checks if the current cell is last cell if so insert a blank row
         # else is the current cell is the first cell then check if the cell is blank
         # if yes then proceed to create new LR
         try:
-            print(row, column)
-            # a always returns the first cell's id
-            a = self.billing_table.itemAt(row, column)
-            if a.text() == "" or column == 3:
+            currow = self.billing_table.currentRow()
+            print(row, column, "gdg", currow)
+            # FIX :
+            # a always returns the first cell's id -> Why?? the hell??
+            if column == 3:
                 r = self.billing_table.rowCount()
                 self.billing_table.setRowCount(r + 1)
+                # self.billing_table.item(currow,column).setFocus()
+                self.billing_table.setCurrentCell(currow + 1, 0)
+                a = self.billing_table.item(currow, column)
+                a.setFocus()
+            if self.billing_table.currentItem().text() == "":
+                self.HChargeInput.setFocus()
 
             # self.billing_table.insertRow(r+1)
 
