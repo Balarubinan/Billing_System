@@ -1,6 +1,6 @@
 from PyQt5.QtGui import QFont, QKeySequence
 
-from UI_files.Billing6 import Ui_MainWindow
+from UI_files.Billing7 import Ui_MainWindow
 from SRC.DatabaseFiles.DatabaseFunctions import *
 from PyQt5.QtWidgets import *
 import sys
@@ -22,12 +22,12 @@ class AppClass(QMainWindow, Ui_MainWindow):
         self.TableAreaTop.setFont(font)
         self.TableAreaTop.update()
         self.billing_table=STable(self.TableAreaBottom)
-        self.billing_table.init_table(cols=4, headers=['QTY', 'ITEM', 'RATE', 'SUBTOTAL'])
+        self.billing_table.init_table(cols=4, headers=['QTY', 'ITEM', 'RATE', 'SUBTOTAL'], row=1)
         self.invoicetoptable = STable(self.TableAreaTop)
         self.invoicetoptable.init_table(cols=11, headers=['SNO', 'DATE', 'CLR', 'TO STATION', 'CONSIGNER', 'CONSIGNEE',
                                                           'FREIGHT', 'TOTAL AMT', 'VEH NUMBER', 'INV NO', 'ITEMS'])
-        self.ItemNameInput.returnPressed.connect(self.LoadOrAddItem)
-        self.AddItemButton.clicked.connect(self.ItemAdd)
+        # self.ItemNameInput.returnPressed.connect(self.LoadOrAddItem)
+        # self.AddItemButton.clicked.connect(self.ItemAdd)
         self.NewLrButton.clicked.connect(self.finaliseCurrentLR)
         self.ItemRateDict = fetch_all_ItemsList()
         self.newitemflag = False

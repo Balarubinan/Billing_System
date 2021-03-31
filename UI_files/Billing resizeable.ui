@@ -7,7 +7,7 @@
                 <x>0</x>
                 <y>0</y>
                 <width>1888</width>
-                <height>1029</height>
+                <height>1030</height>
             </rect>
         </property>
         <property name="windowTitle">
@@ -33,7 +33,7 @@
                             <enum>QTabWidget::Rounded</enum>
                         </property>
                         <property name="currentIndex">
-                            <number>1</number>
+                            <number>0</number>
                         </property>
                         <property name="tabsClosable">
                             <bool>false</bool>
@@ -219,7 +219,14 @@
                                                 </layout>
                                             </item>
                                             <item>
-                                                <widget class="QTableView" name="TableAreaTop"/>
+                                                <widget class="QFrame" name="TableAreaTop">
+                                                    <property name="frameShape">
+                                                        <enum>QFrame::StyledPanel</enum>
+                                                    </property>
+                                                    <property name="frameShadow">
+                                                        <enum>QFrame::Raised</enum>
+                                                    </property>
+                                                </widget>
                                             </item>
                                         </layout>
                                     </widget>
@@ -235,8 +242,8 @@
                                         <layout class="QVBoxLayout" name="verticalLayout_3">
                                             <item>
                                                 <layout class="QGridLayout" name="gridLayout">
-                                                    <item row="1" column="0">
-                                                        <widget class="QLabel" name="label_5">
+                                                    <item row="1" column="3">
+                                                        <widget class="QLabel" name="label_7">
                                                             <property name="font">
                                                                 <font>
                                                                     <pointsize>15</pointsize>
@@ -247,31 +254,45 @@
                                                                 </font>
                                                             </property>
                                                             <property name="text">
-                                                                <string>CNR:</string>
+                                                                <string>CNE:</string>
                                                             </property>
                                                         </widget>
                                                     </item>
-                                                    <item row="0" column="7">
-                                                        <widget class="QLineEdit" name="VechicleNumInput"/>
-                                                    </item>
-                                                    <item row="0" column="2">
-                                                        <spacer name="horizontalSpacer_6">
-                                                            <property name="orientation">
-                                                                <enum>Qt::Horizontal</enum>
+                                                    <item row="1" column="1">
+                                                        <widget class="QLineEdit" name="CNRInput">
+                                                            <property name="text">
+                                                                <string/>
                                                             </property>
-                                                            <property name="sizeHint" stdset="0">
-                                                                <size>
-                                                                    <width>40</width>
-                                                                    <height>20</height>
-                                                                </size>
+                                                            <property name="readOnly">
+                                                                <bool>false</bool>
                                                             </property>
-                                                        </spacer>
+                                                        </widget>
                                                     </item>
-                                                    <item row="0" column="4">
-                                                        <widget class="QLineEdit" name="ToStationInput"/>
+                                                    <item row="1" column="10">
+                                                        <widget class="QLineEdit" name="CLRNumber">
+                                                            <property name="text">
+                                                                <string/>
+                                                            </property>
+                                                            <property name="readOnly">
+                                                                <bool>false</bool>
+                                                            </property>
+                                                        </widget>
                                                     </item>
-                                                    <item row="2" column="7">
-                                                        <widget class="QLineEdit" name="RateInput"/>
+                                                    <item row="0" column="0">
+                                                        <widget class="QLabel" name="label_4">
+                                                            <property name="font">
+                                                                <font>
+                                                                    <pointsize>15</pointsize>
+                                                                    <weight>50</weight>
+                                                                    <italic>false</italic>
+                                                                    <bold>false</bold>
+                                                                    <underline>false</underline>
+                                                                </font>
+                                                            </property>
+                                                            <property name="text">
+                                                                <string>From Station:</string>
+                                                            </property>
+                                                        </widget>
                                                     </item>
                                                     <item row="0" column="6">
                                                         <widget class="QLabel" name="label_21">
@@ -302,24 +323,21 @@
                                                     <item row="0" column="10">
                                                         <widget class="QDateTimeEdit" name="DateInput"/>
                                                     </item>
-                                                    <item row="1" column="3">
-                                                        <widget class="QLabel" name="label_7">
-                                                            <property name="font">
-                                                                <font>
-                                                                    <pointsize>15</pointsize>
-                                                                    <weight>50</weight>
-                                                                    <italic>false</italic>
-                                                                    <bold>false</bold>
-                                                                    <underline>false</underline>
-                                                                </font>
+                                                    <item row="0" column="2">
+                                                        <spacer name="horizontalSpacer_6">
+                                                            <property name="orientation">
+                                                                <enum>Qt::Horizontal</enum>
                                                             </property>
-                                                            <property name="text">
-                                                                <string>CNE:</string>
+                                                            <property name="sizeHint" stdset="0">
+                                                                <size>
+                                                                    <width>40</width>
+                                                                    <height>20</height>
+                                                                </size>
                                                             </property>
-                                                        </widget>
+                                                        </spacer>
                                                     </item>
-                                                    <item row="2" column="4">
-                                                        <widget class="QLineEdit" name="QtyInput"/>
+                                                    <item row="0" column="4">
+                                                        <widget class="QLineEdit" name="ToStationInput"/>
                                                     </item>
                                                     <item row="0" column="5">
                                                         <spacer name="horizontalSpacer_5">
@@ -334,103 +352,6 @@
                                                             </property>
                                                         </spacer>
                                                     </item>
-                                                    <item row="0" column="9">
-                                                        <widget class="QLabel" name="label_8">
-                                                            <property name="font">
-                                                                <font>
-                                                                    <pointsize>15</pointsize>
-                                                                    <weight>50</weight>
-                                                                    <italic>false</italic>
-                                                                    <bold>false</bold>
-                                                                    <underline>false</underline>
-                                                                </font>
-                                                            </property>
-                                                            <property name="text">
-                                                                <string>Date :</string>
-                                                            </property>
-                                                        </widget>
-                                                    </item>
-                                                    <item row="2" column="6">
-                                                        <widget class="QLabel" name="label_22">
-                                                            <property name="font">
-                                                                <font>
-                                                                    <pointsize>15</pointsize>
-                                                                    <weight>50</weight>
-                                                                    <italic>false</italic>
-                                                                    <bold>false</bold>
-                                                                    <underline>false</underline>
-                                                                </font>
-                                                            </property>
-                                                            <property name="text">
-                                                                <string>RATE:</string>
-                                                            </property>
-                                                        </widget>
-                                                    </item>
-                                                    <item row="1" column="10">
-                                                        <widget class="QLineEdit" name="CLRNumber">
-                                                            <property name="text">
-                                                                <string/>
-                                                            </property>
-                                                            <property name="readOnly">
-                                                                <bool>false</bool>
-                                                            </property>
-                                                        </widget>
-                                                    </item>
-                                                    <item row="0" column="0">
-                                                        <widget class="QLabel" name="label_4">
-                                                            <property name="font">
-                                                                <font>
-                                                                    <pointsize>15</pointsize>
-                                                                    <weight>50</weight>
-                                                                    <italic>false</italic>
-                                                                    <bold>false</bold>
-                                                                    <underline>false</underline>
-                                                                </font>
-                                                            </property>
-                                                            <property name="text">
-                                                                <string>From Station:</string>
-                                                            </property>
-                                                        </widget>
-                                                    </item>
-                                                    <item row="2" column="10">
-                                                        <widget class="QPushButton" name="AddItemButton">
-                                                            <property name="font">
-                                                                <font>
-                                                                    <pointsize>10</pointsize>
-                                                                    <weight>50</weight>
-                                                                    <italic>false</italic>
-                                                                    <bold>false</bold>
-                                                                    <underline>false</underline>
-                                                                </font>
-                                                            </property>
-                                                            <property name="text">
-                                                                <string>Add Item</string>
-                                                            </property>
-                                                        </widget>
-                                                    </item>
-                                                    <item row="0" column="8">
-                                                        <spacer name="horizontalSpacer_4">
-                                                            <property name="orientation">
-                                                                <enum>Qt::Horizontal</enum>
-                                                            </property>
-                                                            <property name="sizeHint" stdset="0">
-                                                                <size>
-                                                                    <width>40</width>
-                                                                    <height>20</height>
-                                                                </size>
-                                                            </property>
-                                                        </spacer>
-                                                    </item>
-                                                    <item row="1" column="1">
-                                                        <widget class="QLineEdit" name="CNRInput">
-                                                            <property name="text">
-                                                                <string/>
-                                                            </property>
-                                                            <property name="readOnly">
-                                                                <bool>false</bool>
-                                                            </property>
-                                                        </widget>
-                                                    </item>
                                                     <item row="1" column="4">
                                                         <widget class="QLineEdit" name="CNEInput">
                                                             <property name="text">
@@ -438,54 +359,6 @@
                                                             </property>
                                                             <property name="readOnly">
                                                                 <bool>false</bool>
-                                                            </property>
-                                                        </widget>
-                                                    </item>
-                                                    <item row="2" column="3">
-                                                        <widget class="QLabel" name="label_11">
-                                                            <property name="font">
-                                                                <font>
-                                                                    <pointsize>15</pointsize>
-                                                                    <weight>50</weight>
-                                                                    <italic>false</italic>
-                                                                    <bold>false</bold>
-                                                                    <underline>false</underline>
-                                                                </font>
-                                                            </property>
-                                                            <property name="text">
-                                                                <string>QTY:</string>
-                                                            </property>
-                                                        </widget>
-                                                    </item>
-                                                    <item row="2" column="0">
-                                                        <widget class="QLabel" name="label_10">
-                                                            <property name="font">
-                                                                <font>
-                                                                    <pointsize>15</pointsize>
-                                                                    <weight>50</weight>
-                                                                    <italic>false</italic>
-                                                                    <bold>false</bold>
-                                                                    <underline>false</underline>
-                                                                </font>
-                                                            </property>
-                                                            <property name="text">
-                                                                <string>ITEM Name:</string>
-                                                            </property>
-                                                        </widget>
-                                                    </item>
-                                                    <item row="1" column="9">
-                                                        <widget class="QLabel" name="label_9">
-                                                            <property name="font">
-                                                                <font>
-                                                                    <pointsize>15</pointsize>
-                                                                    <weight>50</weight>
-                                                                    <italic>false</italic>
-                                                                    <bold>false</bold>
-                                                                    <underline>false</underline>
-                                                                </font>
-                                                            </property>
-                                                            <property name="text">
-                                                                <string>CLR :</string>
                                                             </property>
                                                         </widget>
                                                     </item>
@@ -505,25 +378,40 @@
                                                             </property>
                                                         </widget>
                                                     </item>
-                                                    <item row="2" column="1">
-                                                        <widget class="QLineEdit" name="ItemNameInput">
-                                                            <property name="text">
-                                                                <string/>
+                                                    <item row="1" column="9">
+                                                        <widget class="QLabel" name="label_9">
+                                                            <property name="font">
+                                                                <font>
+                                                                    <pointsize>15</pointsize>
+                                                                    <weight>50</weight>
+                                                                    <italic>false</italic>
+                                                                    <bold>false</bold>
+                                                                    <underline>false</underline>
+                                                                </font>
                                                             </property>
-                                                            <property name="readOnly">
-                                                                <bool>false</bool>
+                                                            <property name="text">
+                                                                <string>CLR :</string>
                                                             </property>
                                                         </widget>
                                                     </item>
-                                                    <item row="3" column="0" colspan="11">
-                                                        <widget class="QTableView" name="TableAreaBottom"/>
+                                                    <item row="0" column="9">
+                                                        <widget class="QLabel" name="label_8">
+                                                            <property name="font">
+                                                                <font>
+                                                                    <pointsize>15</pointsize>
+                                                                    <weight>50</weight>
+                                                                    <italic>false</italic>
+                                                                    <bold>false</bold>
+                                                                    <underline>false</underline>
+                                                                </font>
+                                                            </property>
+                                                            <property name="text">
+                                                                <string>Date :</string>
+                                                            </property>
+                                                        </widget>
                                                     </item>
-                                                </layout>
-                                            </item>
-                                            <item>
-                                                <layout class="QGridLayout" name="gridLayout_2">
-                                                    <item row="0" column="2" rowspan="2">
-                                                        <spacer name="horizontalSpacer_8">
+                                                    <item row="0" column="8">
+                                                        <spacer name="horizontalSpacer_4">
                                                             <property name="orientation">
                                                                 <enum>Qt::Horizontal</enum>
                                                             </property>
@@ -535,7 +423,40 @@
                                                             </property>
                                                         </spacer>
                                                     </item>
-                                                    <item row="0" column="6" rowspan="2" colspan="2">
+                                                    <item row="0" column="7">
+                                                        <widget class="QLineEdit" name="VechicleNumInput"/>
+                                                    </item>
+                                                    <item row="1" column="0">
+                                                        <widget class="QLabel" name="label_5">
+                                                            <property name="font">
+                                                                <font>
+                                                                    <pointsize>15</pointsize>
+                                                                    <weight>50</weight>
+                                                                    <italic>false</italic>
+                                                                    <bold>false</bold>
+                                                                    <underline>false</underline>
+                                                                </font>
+                                                            </property>
+                                                            <property name="text">
+                                                                <string>CNR:</string>
+                                                            </property>
+                                                        </widget>
+                                                    </item>
+                                                </layout>
+                                            </item>
+                                            <item>
+                                                <widget class="QFrame" name="TableAreaBottom">
+                                                    <property name="frameShape">
+                                                        <enum>QFrame::StyledPanel</enum>
+                                                    </property>
+                                                    <property name="frameShadow">
+                                                        <enum>QFrame::Raised</enum>
+                                                    </property>
+                                                </widget>
+                                            </item>
+                                            <item>
+                                                <layout class="QGridLayout" name="gridLayout_2">
+                                                    <item row="5" column="6">
                                                         <widget class="QLabel" name="labbb">
                                                             <property name="font">
                                                                 <font>
@@ -551,132 +472,7 @@
                                                             </property>
                                                         </widget>
                                                     </item>
-                                                    <item row="2" column="8" rowspan="2">
-                                                        <widget class="QLineEdit" name="CrossingInput"/>
-                                                    </item>
-                                                    <item row="5" column="4">
-                                                        <widget class="QLabel" name="label_27">
-                                                            <property name="font">
-                                                                <font>
-                                                                    <pointsize>15</pointsize>
-                                                                    <weight>50</weight>
-                                                                    <italic>false</italic>
-                                                                    <bold>false</bold>
-                                                                    <underline>false</underline>
-                                                                </font>
-                                                            </property>
-                                                            <property name="text">
-                                                                <string>LR TYPE:</string>
-                                                            </property>
-                                                        </widget>
-                                                    </item>
-                                                    <item row="2" column="3" rowspan="2">
-                                                        <spacer name="horizontalSpacer_7">
-                                                            <property name="orientation">
-                                                                <enum>Qt::Horizontal</enum>
-                                                            </property>
-                                                            <property name="sizeHint" stdset="0">
-                                                                <size>
-                                                                    <width>40</width>
-                                                                    <height>20</height>
-                                                                </size>
-                                                            </property>
-                                                        </spacer>
-                                                    </item>
-                                                    <item row="5" column="5">
-                                                        <widget class="QComboBox" name="LRTypeInput">
-                                                            <item>
-                                                                <property name="text">
-                                                                    <string>TO PAY</string>
-                                                                </property>
-                                                            </item>
-                                                            <item>
-                                                                <property name="text">
-                                                                    <string>PAID</string>
-                                                                </property>
-                                                            </item>
-                                                            <item>
-                                                                <property name="text">
-                                                                    <string/>
-                                                                </property>
-                                                            </item>
-                                                        </widget>
-                                                    </item>
-                                                    <item row="0" column="8" rowspan="2">
-                                                        <widget class="QLineEdit" name="HChargeInput"/>
-                                                    </item>
-                                                    <item row="2" column="6" rowspan="2" colspan="2">
-                                                        <widget class="QLabel" name="llab1">
-                                                            <property name="font">
-                                                                <font>
-                                                                    <pointsize>15</pointsize>
-                                                                    <weight>50</weight>
-                                                                    <italic>false</italic>
-                                                                    <bold>false</bold>
-                                                                    <underline>false</underline>
-                                                                </font>
-                                                            </property>
-                                                            <property name="text">
-                                                                <string>Crossing:</string>
-                                                            </property>
-                                                        </widget>
-                                                    </item>
-                                                    <item row="3" column="1">
-                                                        <spacer name="horizontalSpacer_9">
-                                                            <property name="orientation">
-                                                                <enum>Qt::Horizontal</enum>
-                                                            </property>
-                                                            <property name="sizeHint" stdset="0">
-                                                                <size>
-                                                                    <width>40</width>
-                                                                    <height>20</height>
-                                                                </size>
-                                                            </property>
-                                                        </spacer>
-                                                    </item>
-                                                    <item row="0" column="0">
-                                                        <layout class="QFormLayout" name="formLayout">
-                                                            <item row="0" column="0">
-                                                                <widget class="QLabel" name="label_25">
-                                                                    <property name="font">
-                                                                        <font>
-                                                                            <pointsize>15</pointsize>
-                                                                            <weight>50</weight>
-                                                                            <italic>false</italic>
-                                                                            <bold>false</bold>
-                                                                            <underline>false</underline>
-                                                                        </font>
-                                                                    </property>
-                                                                    <property name="text">
-                                                                        <string>CNR GST:</string>
-                                                                    </property>
-                                                                </widget>
-                                                            </item>
-                                                            <item row="0" column="1">
-                                                                <widget class="QLineEdit" name="CNRGSTInput"/>
-                                                            </item>
-                                                            <item row="1" column="0">
-                                                                <widget class="QLabel" name="label_26">
-                                                                    <property name="font">
-                                                                        <font>
-                                                                            <pointsize>15</pointsize>
-                                                                            <weight>50</weight>
-                                                                            <italic>false</italic>
-                                                                            <bold>false</bold>
-                                                                            <underline>false</underline>
-                                                                        </font>
-                                                                    </property>
-                                                                    <property name="text">
-                                                                        <string>CNE GST:</string>
-                                                                    </property>
-                                                                </widget>
-                                                            </item>
-                                                            <item row="1" column="1">
-                                                                <widget class="QLineEdit" name="CNEGSTInput"/>
-                                                            </item>
-                                                        </layout>
-                                                    </item>
-                                                    <item row="5" column="0">
+                                                    <item row="7" column="0">
                                                         <layout class="QHBoxLayout" name="horizontalLayout_4">
                                                             <item>
                                                                 <widget class="QPushButton" name="PrintLrButton">
@@ -744,13 +540,80 @@
                                                             </item>
                                                         </layout>
                                                     </item>
-                                                    <item row="5" column="8">
-                                                        <layout class="QHBoxLayout" name="horizontalLayout_5">
+                                                    <item row="6" column="4">
+                                                        <widget class="QComboBox" name="LRTypeInput">
                                                             <item>
-                                                                <widget class="QLabel" name="label_20">
+                                                                <property name="text">
+                                                                    <string>TO PAY</string>
+                                                                </property>
+                                                            </item>
+                                                            <item>
+                                                                <property name="text">
+                                                                    <string>PAID</string>
+                                                                </property>
+                                                            </item>
+                                                            <item>
+                                                                <property name="text">
+                                                                    <string/>
+                                                                </property>
+                                                            </item>
+                                                        </widget>
+                                                    </item>
+                                                    <item row="7" column="2">
+                                                        <spacer name="horizontalSpacer_9">
+                                                            <property name="orientation">
+                                                                <enum>Qt::Horizontal</enum>
+                                                            </property>
+                                                            <property name="sizeHint" stdset="0">
+                                                                <size>
+                                                                    <width>40</width>
+                                                                    <height>20</height>
+                                                                </size>
+                                                            </property>
+                                                        </spacer>
+                                                    </item>
+                                                    <item row="6" column="6">
+                                                        <widget class="QLabel" name="llab1">
+                                                            <property name="font">
+                                                                <font>
+                                                                    <pointsize>15</pointsize>
+                                                                    <weight>50</weight>
+                                                                    <italic>false</italic>
+                                                                    <bold>false</bold>
+                                                                    <underline>false</underline>
+                                                                </font>
+                                                            </property>
+                                                            <property name="text">
+                                                                <string>Crossing:</string>
+                                                            </property>
+                                                        </widget>
+                                                    </item>
+                                                    <item row="6" column="5">
+                                                        <widget class="QLabel" name="label_27">
+                                                            <property name="font">
+                                                                <font>
+                                                                    <pointsize>15</pointsize>
+                                                                    <weight>50</weight>
+                                                                    <italic>false</italic>
+                                                                    <bold>false</bold>
+                                                                    <underline>false</underline>
+                                                                </font>
+                                                            </property>
+                                                            <property name="text">
+                                                                <string>LR TYPE:</string>
+                                                            </property>
+                                                        </widget>
+                                                    </item>
+                                                    <item row="6" column="0">
+                                                        <layout class="QFormLayout" name="formLayout">
+                                                            <item row="0" column="1">
+                                                                <widget class="QLineEdit" name="CNRGSTInput"/>
+                                                            </item>
+                                                            <item row="1" column="0">
+                                                                <widget class="QLabel" name="label_26">
                                                                     <property name="font">
                                                                         <font>
-                                                                            <pointsize>20</pointsize>
+                                                                            <pointsize>15</pointsize>
                                                                             <weight>50</weight>
                                                                             <italic>false</italic>
                                                                             <bold>false</bold>
@@ -758,15 +621,18 @@
                                                                         </font>
                                                                     </property>
                                                                     <property name="text">
-                                                                        <string>RS .P</string>
+                                                                        <string>CNE GST:</string>
                                                                     </property>
                                                                 </widget>
                                                             </item>
-                                                            <item>
-                                                                <widget class="QLabel" name="TotalAmountLabel">
+                                                            <item row="1" column="1">
+                                                                <widget class="QLineEdit" name="CNEGSTInput"/>
+                                                            </item>
+                                                            <item row="0" column="0">
+                                                                <widget class="QLabel" name="label_25">
                                                                     <property name="font">
                                                                         <font>
-                                                                            <pointsize>20</pointsize>
+                                                                            <pointsize>15</pointsize>
                                                                             <weight>50</weight>
                                                                             <italic>false</italic>
                                                                             <bold>false</bold>
@@ -774,11 +640,78 @@
                                                                         </font>
                                                                     </property>
                                                                     <property name="text">
-                                                                        <string>1000</string>
+                                                                        <string>CNR GST:</string>
                                                                     </property>
                                                                 </widget>
                                                             </item>
                                                         </layout>
+                                                    </item>
+                                                    <item row="5" column="10">
+                                                        <widget class="QLabel" name="label_20">
+                                                            <property name="font">
+                                                                <font>
+                                                                    <pointsize>20</pointsize>
+                                                                    <weight>50</weight>
+                                                                    <italic>false</italic>
+                                                                    <bold>false</bold>
+                                                                    <underline>false</underline>
+                                                                </font>
+                                                            </property>
+                                                            <property name="text">
+                                                                <string>RS .P</string>
+                                                            </property>
+                                                        </widget>
+                                                    </item>
+                                                    <item row="5" column="7">
+                                                        <widget class="QLineEdit" name="HChargeInput"/>
+                                                    </item>
+                                                    <item row="7" column="10">
+                                                        <layout class="QHBoxLayout" name="horizontalLayout_5"/>
+                                                    </item>
+                                                    <item row="7" column="3">
+                                                        <spacer name="horizontalSpacer_7">
+                                                            <property name="orientation">
+                                                                <enum>Qt::Horizontal</enum>
+                                                            </property>
+                                                            <property name="sizeHint" stdset="0">
+                                                                <size>
+                                                                    <width>40</width>
+                                                                    <height>20</height>
+                                                                </size>
+                                                            </property>
+                                                        </spacer>
+                                                    </item>
+                                                    <item row="6" column="7">
+                                                        <widget class="QLineEdit" name="CrossingInput"/>
+                                                    </item>
+                                                    <item row="5" column="9">
+                                                        <widget class="QLabel" name="TotalAmountLabel">
+                                                            <property name="font">
+                                                                <font>
+                                                                    <pointsize>20</pointsize>
+                                                                    <weight>50</weight>
+                                                                    <italic>false</italic>
+                                                                    <bold>false</bold>
+                                                                    <underline>false</underline>
+                                                                </font>
+                                                            </property>
+                                                            <property name="text">
+                                                                <string>1000</string>
+                                                            </property>
+                                                        </widget>
+                                                    </item>
+                                                    <item row="5" column="8">
+                                                        <spacer name="horizontalSpacer_8">
+                                                            <property name="orientation">
+                                                                <enum>Qt::Horizontal</enum>
+                                                            </property>
+                                                            <property name="sizeHint" stdset="0">
+                                                                <size>
+                                                                    <width>40</width>
+                                                                    <height>20</height>
+                                                                </size>
+                                                            </property>
+                                                        </spacer>
                                                     </item>
                                                 </layout>
                                             </item>
@@ -995,7 +928,11 @@
                                                         </widget>
                                                     </item>
                                                     <item row="2" column="0" colspan="6">
-                                                        <widget class="QTableView" name="InvoiceMainTableView"/>
+                                                        <widget class="QTableView" name="InvoiceMainTableView">
+                                                            <property name="sizeAdjustPolicy">
+                                                                <enum>QAbstractScrollArea::AdjustIgnored</enum>
+                                                            </property>
+                                                        </widget>
                                                     </item>
                                                     <item row="0" column="0">
                                                         <widget class="QLabel" name="label_12">
@@ -1125,6 +1062,34 @@
             </property>
         </action>
     </widget>
+    <tabstops>
+        <tabstop>FrStationInput</tabstop>
+        <tabstop>ToStationInput</tabstop>
+        <tabstop>CNRInput</tabstop>
+        <tabstop>CNEInput</tabstop>
+        <tabstop>NewLrButton</tabstop>
+        <tabstop>CNRGSTInput</tabstop>
+        <tabstop>CNEGSTInput</tabstop>
+        <tabstop>BranchComboBox</tabstop>
+        <tabstop>MainTabWidget</tabstop>
+        <tabstop>DateInput</tabstop>
+        <tabstop>PrintLrButton</tabstop>
+        <tabstop>CancelLrButton</tabstop>
+        <tabstop>EditLrButton</tabstop>
+        <tabstop>CLRNumber</tabstop>
+        <tabstop>VechicleNumInput</tabstop>
+        <tabstop>CLRSearchInput</tabstop>
+        <tabstop>SearchCLRButton</tabstop>
+        <tabstop>PrintInvoiceNumInput</tabstop>
+        <tabstop>ChangeAsButtonCalInvoice</tabstop>
+        <tabstop>InvoiceVechicleNumInput</tabstop>
+        <tabstop>InvoiceBranchCode</tabstop>
+        <tabstop>comboBox</tabstop>
+        <tabstop>LRInvoiceSearchInput</tabstop>
+        <tabstop>InvoicePrintButton</tabstop>
+        <tabstop>InvoiceMainTableView</tabstop>
+        <tabstop>LRSearchInvoiceButton</tabstop>
+    </tabstops>
     <resources/>
     <connections/>
 </ui>

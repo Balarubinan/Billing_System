@@ -1,21 +1,36 @@
 from math import floor
 
-from PyQt5.QtWidgets import QTableWidget,QTableWidgetItem
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QTableView, QFrame
+
+
+# table not follwing resize options
 
 class STable(QTableWidget):
-    def __init__(self,parent):
+    def __init__(self, parent: QFrame):
         super(STable, self).__init__(parent)
+        # try:
+        #     self.setLayout(parent.layout())
+        # except(Exception) as e:
+        #     print("errir",e)
         # self.init_table(self.parent())
 
-    def init_table(self, row=0, cols=0, headers=None):
+    def init_table(self, row=1, cols=0, headers=None):
         if headers is None:
             headers = []
         self.setAlternatingRowColors(True)
         self.setColumnCount(cols)
         self.setRowCount(row)
-        self.setFixedWidth(self.parent().width())
-        self.setFixedHeight(self.parent().height())
+        # self.setFixedWidth(self.parent().width())
+        # self.setFixedHeight(self.parent().height())
+        # self.setFixedWidth(1000)
+        # self.setFixedHeight(300)
         self.setHorizontalHeaderLabels(headers)
+        print(self.parentWidget().geometry())
+        print(self.parentWidget().objectName())
+        self.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
+        # self.setInputMethodHints()
+        # self.
 
     def LoadTable(self,rdata=None):
         # debugging purpose! remove after debugs!
