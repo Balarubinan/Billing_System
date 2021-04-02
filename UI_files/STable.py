@@ -1,7 +1,7 @@
 from math import floor
 
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QTableView, QFrame
+from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QTableView, QFrame, QLineEdit
 
 
 # table not follwing resize options
@@ -72,14 +72,17 @@ class STable(QTableWidget):
             self.setItem(cnt, x, QTableWidgetItem(str(rdata[x])))
 
     # use int to get a row full of numbers
-    def get_row_contents(self, rowid:int, mode="str"):
+    def get_row_contents(self, rowid: int = 0, cols=None, mode="str"):
+        if cols is None:
+            cols = self.columnCount()
         try:
             lis=[]
             print("*"*100)
-            for x in range(self.columnCount()):
+            for x in range(cols):
                 lis.append(int(self.item(rowid, x).text()) if mode is "int" else self.item(rowid, x).text())
                 print("Item fetched ",(self.itemAt(rowid, x).text()))
             print("*" * 100)
+            print(lis)
             return lis
         except(Exception) as e:
             print("Exception while fecthing rowcontents",e)
@@ -93,3 +96,6 @@ class STable(QTableWidget):
         except(Exception) as e:
             print("Exception while fetching Colcontents ",e)
 
+    def create_row_items(self, row):
+        for x in range(self.columnCount()):
+            self.setCellWidget(row, x, QLineEdit())

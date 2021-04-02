@@ -6,23 +6,34 @@ from UI_files.ButtonCalender import ButtonCalender
 from UI_files.SelfLearnQLineEdit import SLQLineEdit
 from UI_files.LoginForm import Ui_Dialog
 from UI_files.LoginDerived import LoginBox
-from PyQt5.QtWidgets import QCalendarWidget, QApplication,QDialog
+from PyQt5.QtWidgets import QCalendarWidget, QApplication, QDialog, QPushButton
 from UI_files.Billing6 import Ui_MainWindow
-from SRC.Main import AppClass
+from UI_files.STable import STable
 
-TEST_WIDGET = QCalendarWidget
+# from SRC.Main import AppClass
+
+TEST_WIDGET = STable
 
 
-class WW(TEST_WIDGET,QDialog):
-    def __init__(self):
-        super(WW, self).__init__()
+class WW(TEST_WIDGET):  # ,QDialog
+    def __init__(self, parent):
+        super(WW, self).__init__(parent)
+        self.init_table(3, 3)
         # self.setupUi(self)
         self.show()
         # self.pushButton.clicked.connect()
         # self.wid=self.calendarWidget
+        self.a = QPushButton(self)
+        self.a.clicked.connect(self.get_row_contents)
 
 app = QApplication(sys.argv)
-x = LoginBox()
+# x = LoginBox()
+a = QDialog()
+x = WW(a)
+a.show()
+
+
+
 # QCalendarWidget().selectedDate()
 # w.show()
 app.exec_()

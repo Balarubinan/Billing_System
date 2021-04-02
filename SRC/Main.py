@@ -1,4 +1,5 @@
 from PyQt5.QtGui import QFont, QKeySequence
+from PyQt5 import QtCore
 
 from UI_files.Billing7 import Ui_MainWindow
 from SRC.DatabaseFiles.DatabaseFunctions import *
@@ -9,6 +10,7 @@ from UI_files.searchDiagDerived import SearchBox
 from UI_files.ButtonCalender import ButtonCalender
 from datetime import datetime
 from SRC.miscfunctions import *
+from UI_files.SelfLearnQLineEdit import SLQLineEdit
 
 
 # for some reason adding QDialog in the AppClass Creates error !
@@ -76,6 +78,8 @@ class AppClass(QMainWindow, Ui_MainWindow):
         # self.CLRNumber.setObjectName("CLRNumber")
         self.invoicetoptable.itemClicked.connect(self.load_prev_LR)
         self.billing_table.cellChanged.connect(self.check_end_LR)
+        # sett the SLQline edit in the Table cell to get the effect of auto complete
+        # self.billing_table.setCellWidget(0,0,SLQLineEdit(Name="text",parent=self.billing_table))
 
     def check_end_LR(self, row, column):
         # checks if the current cell is last cell if so insert a blank row
@@ -83,18 +87,25 @@ class AppClass(QMainWindow, Ui_MainWindow):
         # if yes then proceed to create new LR
         try:
             currow = self.billing_table.currentRow()
-            print(row, column, "gdg", currow)
+            # print(row, column, "gdg", currow)
             # FIX :
             # a always returns the first cell's id -> Why?? the hell??
-            if column == 3:
+            if column == 2:
                 r = self.billing_table.rowCount()
                 self.billing_table.setRowCount(r + 1)
+                self.billing_table.create_row_items(r + 1)
                 # self.billing_table.item(currow,column).setFocus()
+                # self.billing_table.item(currow,column).setFocus(QtCore.Qt.StrongFocus)
+                # a = self.billing_table.item(currow, column)
+                # a.setFocus()
+                fetch = self.billing_table.get_row_contents(currow, cols=3)
+                print("row fetched", fetch)
+                subtotal = self.ItemAdd(*fetch)
+                self.billing_table.itemAt(r, column + 1).setText(str(subtotal))
                 self.billing_table.setCurrentCell(currow + 1, 0)
-                a = self.billing_table.item(currow, column)
-                a.setFocus()
             if self.billing_table.currentItem().text() == "":
                 self.HChargeInput.setFocus()
+
 
             # self.billing_table.insertRow(r+1)
 
@@ -142,9 +153,9 @@ class AppClass(QMainWindow, Ui_MainWindow):
         else:
             self.itemmode = "new"
 
-    def ItemAdd(self):
+    def ItemAdd(self, qty, name, rate):
         print("Add Item called!")
-        name, rate, qty = self.ItemNameInput.text(), self.RateInput.text(), self.QtyInput.text()
+        # name, rate, qty = self.ItemNameInput.text(), self.RateInput.text(), self.QtyInput.text()
         if not validate_decimal(rate) or not validate_decimal(qty):
             self.show_message('Enter only digits for rate and qty!')
             return
@@ -159,11 +170,12 @@ class AppClass(QMainWindow, Ui_MainWindow):
 
             self.ItemRateDict[name] = rate
             subtotal_amt = rate * qty
-            self.billing_table.insert_row([qty, name, rate, subtotal_amt])
+            # self.billing_table.insert_row([qty, name, rate, subtotal_amt])
             self.TotalAmountLabel.setText(str(float(self.TotalAmountLabel.text()) + subtotal_amt))
             self.current_invoice_items.append([qty, name, rate, subtotal_amt])
             print(self.current_invoice_items, "are the current the items")
             print("Add ItemENd")
+            return subtotal_amt
         except(Exception) as e:
             print("Erorr is ", e)
 
